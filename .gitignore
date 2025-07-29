@@ -1,0 +1,7 @@
+# BACKEND
+
+# FRONTEND
+# Ignore all node_modules folders everywhere
+node_modules/
+
+.idea/
