@@ -20,7 +20,9 @@ class LoginController extends Controller
 
         if ($user && Hash::check($request->password, $user->password)) {
             return response()->json([
-                'message' => "successfully logged, {$user->username}"
+                'success' => true,
+                'username' => $user->username,
+                'message' => "Successfully logged, {$user->username}"
             ]);
         }
 

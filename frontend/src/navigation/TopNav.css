@@ -1,0 +1,17 @@
+.topnav {
+  display: flex;
+  justify-content: space-between;
+  background-color: #004d99;
+  color: white;
+  padding: 10px 20px;
+  align-items: center;
+  font-size: 18px;
+}
+
+.logo {
+  font-weight: bold;
+}
+
+.profile {
+  cursor: pointer;
+}
