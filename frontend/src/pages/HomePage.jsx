@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 import './HomePage.css';
-import Topnav from "../navigation/TopNav.jsx";
+import Topnav from "../components/TopNav.jsx";
+import Sidenav from "../components/Sidenav.jsx";
 
-const HomePage = ({ username }) => {
-  return (
-    <div className="home-container">
-      <Topnav username={username} />
-      <div className="welcome-text">Welcome, {username}</div>
-    </div>
-  );
+const HomePage = ({username}) => {
+    return (
+        <div className="home-container">
+            <Topnav username={username}/>
+            <Sidenav/>
+            <div className="welcome-text">Welcome, {username}</div>
+        </div>
+    );
 };
 
 export default HomePage;
