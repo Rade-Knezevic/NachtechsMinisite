@@ -1,0 +1,42 @@
+.account-container {
+  padding: 20px;
+}
+
+.account-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.new-account-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.new-account-btn:hover {
+  background-color: #45a049;
+}
+
+.account-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.account-table th,
+.account-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.account-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.account-table tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}

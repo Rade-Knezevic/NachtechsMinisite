@@ -8,7 +8,6 @@ import { faHome, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faHome, faCog, faSignOutAlt);
 
-
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
