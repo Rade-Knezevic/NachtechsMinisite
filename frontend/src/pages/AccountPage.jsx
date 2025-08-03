@@ -4,6 +4,7 @@ import './AccountPage.css';
 import './CommonStyles.css';
 import {useNavigate} from "react-router-dom";
 import Topnav from "../components/TopNav.jsx";
+import Sidenav from "../components/Sidenav.jsx";
 
 const AccountPage = (username) => {
     const navigate = useNavigate();
@@ -72,6 +73,7 @@ const AccountPage = (username) => {
     return (
         <div className="account-container">
             <Topnav username={username.username}/>
+            <Sidenav/>
             <div className="account-toolbar">
                 <button className="new-account-btn" onClick={() => setShowForm(!showForm)}>
                     {showForm ? 'Cancel' : 'New Account'}

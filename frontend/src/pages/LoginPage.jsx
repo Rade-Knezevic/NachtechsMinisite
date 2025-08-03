@@ -48,7 +48,7 @@ const LoginPage = ({ onLoginSuccess }) => {
                 onChange={e => setPassword(e.target.value)}
                 required
             /><br/>
-            <button type="submit">Login</button>
+            <button className={"new-account-btn"} type="submit">Login</button>
         </form>
     );
 };
