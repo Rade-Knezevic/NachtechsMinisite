@@ -40,3 +40,16 @@
   background-color: #f1f1f1;
   cursor: pointer;
 }
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.account-form input,
+.account-form button {
+  padding: 8px;
+  font-size: 14px;
+}

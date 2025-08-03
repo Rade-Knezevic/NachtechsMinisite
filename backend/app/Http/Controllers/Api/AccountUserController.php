@@ -8,23 +8,27 @@ use App\Models\AccountUser;
 
 class AccountUserController extends Controller
 {
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'account_name' => 'required|string',
-            'unique_identifier_code' => 'required|string|unique:account_users',
-            'authorization_level' => 'required|in:Administrative,Multi-Account,Single Account',
-            'active' => 'required|boolean',
-            'description' => 'nullable|string',
-        ]);
+   public function store(Request $request)
+        {
+            try {
+                $validated = $request->validate([
+                    'account_name' => 'required|string',
+                    'unique_identifier_code' => 'required|string|unique:account_users',
+                    'authorization_level' => 'required|in:Administrative,Multi-Account,Single Account',
+                    'active' => 'required|boolean',
+                    'description' => 'nullable|string',
+                ]);
 
-        $user = AccountUser::create($validated);
+                $user = AccountUser::create($validated);
 
-        return response()->json([
-            'message' => 'Account user created successfully.',
-            'data' => $user
-        ], 201);
-    }
+                return response()->json([
+                    'message' => 'Account user created successfully.',
+                    'data' => $user
+                ], 201);
+            } catch (\Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
+        }
 
     public function index()
     {
@@ -42,3 +46,6 @@ class AccountUserController extends Controller
         return response()->json($account);
     }
 }
+
+
+

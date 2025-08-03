@@ -12,9 +12,47 @@ const AccountPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const [showForm, setShowForm] = useState(false);
+    const [newAccount, setNewAccount] = useState({
+        account_name: '',
+        unique_identifier_code: '',
+        authorization_level: '',
+        active: true,
+        description: '',
+    });
+
     const handleRowDoubleClick = (accountId) => {
         navigate(`/account/${accountId}`);
     };
+
+    const handleInputChange = (e) => {
+        const {name, value, type, checked} = e.target;
+        setNewAccount(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
+    const handleCreateAccount = () => {
+        axios.post('http://localhost:8000/api/account-users', newAccount)
+            .then(res => {
+                setAccounts(prev => [...prev, res.data.data]);
+                setShowForm(false);
+                setNewAccount({
+                    account_name: '',
+                    unique_identifier_code: '',
+                    authorization_level: '',
+                    active: true,
+                    description: '',
+                });
+                console.log("Created account:", res.data);
+            })
+            .catch(err => {
+                console.error('Failed to create account:', err);
+                alert('Error creating account');
+            });
+    };
+
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/account-users')
@@ -32,8 +70,28 @@ const AccountPage = () => {
     return (
         <div className="account-container">
             <div className="account-toolbar">
-                <button className="new-account-btn">New Account</button>
+                <button className="new-account-btn" onClick={() => setShowForm(!showForm)}>
+                    {showForm ? 'Cancel' : 'New Account'}
+                </button>
             </div>
+
+            {showForm && (
+                <div className="account-form">
+                    <input name="account_name" placeholder="Account Name" value={newAccount.account_name}
+                           onChange={handleInputChange}/>
+                    <input name="unique_identifier_code" placeholder="Code" value={newAccount.unique_identifier_code}
+                           onChange={handleInputChange}/>
+                    <input name="authorization_level" placeholder="Authorization Level"
+                           value={newAccount.authorization_level} onChange={handleInputChange}/>
+                    <label>
+                        <input type="checkbox" name="active" checked={newAccount.active} onChange={handleInputChange}/>
+                        Active
+                    </label>
+                    <input name="description" placeholder="Description" value={newAccount.description}
+                           onChange={handleInputChange}/>
+                    <button className="new-account-btn" onClick={handleCreateAccount}>Save</button>
+                </div>
+            )}
 
             {loading ? (
                 <p>Loading accounts...</p>
