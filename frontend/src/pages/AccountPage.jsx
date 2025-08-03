@@ -3,8 +3,9 @@ import axios from 'axios';
 import './AccountPage.css';
 import './CommonStyles.css';
 import {useNavigate} from "react-router-dom";
+import Topnav from "../components/TopNav.jsx";
 
-const AccountPage = () => {
+const AccountPage = (username) => {
     const navigate = useNavigate();
 
 
@@ -67,8 +68,10 @@ const AccountPage = () => {
             });
     }, []);
 
+    console.log(username);
     return (
         <div className="account-container">
+            <Topnav username={username.username}/>
             <div className="account-toolbar">
                 <button className="new-account-btn" onClick={() => setShowForm(!showForm)}>
                     {showForm ? 'Cancel' : 'New Account'}
@@ -81,8 +84,17 @@ const AccountPage = () => {
                            onChange={handleInputChange}/>
                     <input name="unique_identifier_code" placeholder="Code" value={newAccount.unique_identifier_code}
                            onChange={handleInputChange}/>
-                    <input name="authorization_level" placeholder="Authorization Level"
-                           value={newAccount.authorization_level} onChange={handleInputChange}/>
+                    <select
+                        name="authorization_level"
+                        value={newAccount.authorization_level}
+                        onChange={handleInputChange}
+                    >
+                        <option value="">Select Authorization Level</option>
+                        <option value="Administrative">Administrative</option>
+                        <option value="Multi-Account">Multi-Account</option>
+                        <option value="Single Account">Single Account</option>
+                    </select>
+
                     <label>
                         <input type="checkbox" name="active" checked={newAccount.active} onChange={handleInputChange}/>
                         Active
