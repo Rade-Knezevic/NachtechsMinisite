@@ -1,41 +1,67 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import './AccountPage.css';
 
-const testAccounts = [
-  { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin' },
-  { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'User' },
-  { id: 3, name: 'Bob Lee', email: 'bob@example.com', role: 'Manager' },
-];
-
 const AccountPage = () => {
-  const handleRowDoubleClick = (accountId) => {
-    window.location.href = `/account/${accountId}`;
-  };
+    const [accounts, setAccounts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  return (
-    <div className="account-container">
-      <div className="account-toolbar">
-        <button className="new-account-btn">New Account</button>
-      </div>
-      <table className="account-table">
-        <thead>
-          <tr>
-            <th>ID</th><th>Name</th><th>Email</th><th>Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          {testAccounts.map(account => (
-            <tr key={account.id} onDoubleClick={() => handleRowDoubleClick(account.id)}>
-              <td>{account.id}</td>
-              <td>{account.name}</td>
-              <td>{account.email}</td>
-              <td>{account.role}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+    const handleRowDoubleClick = (accountId) => {
+        window.location.href = `/account/${accountId}`;
+    };
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/api/account-users')
+            .then(res => {
+                setAccounts(res.data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error(err);
+                setError('Failed to load accounts');
+                setLoading(false);
+            });
+    }, []);
+
+    return (
+        <div className="account-container">
+            <div className="account-toolbar">
+                <button className="new-account-btn">New Account</button>
+            </div>
+
+            {loading ? (
+                <p>Loading accounts...</p>
+            ) : error ? (
+                <p className="error">{error}</p>
+            ) : (
+                <table className="account-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Account Name</th>
+                        <th>Code</th>
+                        <th>Authorization</th>
+                        <th>Active</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {accounts.map(account => (
+                        <tr key={account.id} onDoubleClick={() => handleRowDoubleClick(account.id)}>
+                            <td>{account.id}</td>
+                            <td>{account.account_name}</td>
+                            <td>{account.unique_identifier_code}</td>
+                            <td>{account.authorization_level}</td>
+                            <td>{account.active ? 'Yes' : 'No'}</td>
+                            <td>{account.description}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            )}
+        </div>
+    );
 };
 
 export default AccountPage;

@@ -25,5 +25,11 @@ class AccountUserController extends Controller
             'data' => $user
         ], 201);
     }
+
+    public function index()
+    {
+        return response()->json(AccountUser::all());
+    }
 }
+
 
