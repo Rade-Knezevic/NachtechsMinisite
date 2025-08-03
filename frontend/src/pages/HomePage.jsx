@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
 import './HomePage.css';
+import './CommonStyles.css';
 import Topnav from "../components/TopNav.jsx";
 import Sidenav from "../components/Sidenav.jsx";
 

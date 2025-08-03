@@ -3,10 +3,15 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
-import AccountPage from './pages/AccountPage'; // Don't forget to create this
+import AccountPage from './pages/AccountPage';
+import AccountDetail from './pages/AccountDetails.jsx'; // Make sure this path is correct
 
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
+
+  const RequireAuth = ({ children }) => {
+    return loggedInUser ? children : <Navigate to="/login" />;
+  };
 
   return (
     <Router>
@@ -14,11 +19,9 @@ const App = () => {
         <Route
           path="/"
           element={
-            loggedInUser ? (
+            <RequireAuth>
               <HomePage username={loggedInUser} />
-            ) : (
-              <Navigate to="/login" />
-            )
+            </RequireAuth>
           }
         />
         <Route
@@ -28,11 +31,17 @@ const App = () => {
         <Route
           path="/account"
           element={
-            loggedInUser ? (
+            <RequireAuth>
               <AccountPage username={loggedInUser} />
-            ) : (
-              <Navigate to="/login" />
-            )
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/account/:id"
+          element={
+            <RequireAuth>
+              <AccountDetail username={loggedInUser} />
+            </RequireAuth>
           }
         />
       </Routes>

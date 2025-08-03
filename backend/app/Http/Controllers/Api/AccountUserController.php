@@ -30,6 +30,15 @@ class AccountUserController extends Controller
     {
         return response()->json(AccountUser::all());
     }
+
+    public function show($id)
+    {
+        $account = AccountUser::find($id);
+
+        if (!$account) {
+            return response()->json(['message' => 'Account not found'], 404);
+        }
+
+        return response()->json($account);
+    }
 }
-
-

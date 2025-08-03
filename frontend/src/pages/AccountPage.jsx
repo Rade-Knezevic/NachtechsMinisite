@@ -1,14 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './AccountPage.css';
+import './CommonStyles.css';
+import {useNavigate} from "react-router-dom";
 
 const AccountPage = () => {
+    const navigate = useNavigate();
+
+
     const [accounts, setAccounts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const handleRowDoubleClick = (accountId) => {
-        window.location.href = `/account/${accountId}`;
+        navigate(`/account/${accountId}`);
     };
 
     useEffect(() => {
