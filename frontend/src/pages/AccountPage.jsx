@@ -74,17 +74,18 @@ const AccountPage = (username) => {
         <div className="account-container">
             <Topnav username={username.username}/>
             <Sidenav/>
-            <div className="account-toolbar">
-                <button className="new-account-btn" onClick={() => setShowForm(!showForm)}>
+            <div className={`account-toolbar ${showForm ? '' : 'bordered'}`}>
+                <button className={`new-account-btn ${showForm ? '' : 'margine'}`} onClick={() => setShowForm(!showForm)}>
                     {showForm ? 'Cancel' : 'New Account'}
                 </button>
             </div>
 
+
             {showForm && (
                 <div className="account-form">
-                    <input name="account_name" placeholder="Account Name" value={newAccount.account_name}
+                    <input name="account_name" required placeholder="Account Name" value={newAccount.account_name}
                            onChange={handleInputChange}/>
-                    <input name="unique_identifier_code" placeholder="Code" value={newAccount.unique_identifier_code}
+                    <input name="unique_identifier_code" required placeholder="Code" value={newAccount.unique_identifier_code}
                            onChange={handleInputChange}/>
                     <select
                         name="authorization_level"

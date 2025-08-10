@@ -4,8 +4,17 @@
 
 .account-toolbar {
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: 10px;
+  justify-content: flex-end;  /* push content to the right */
+  align-items: center;        /* vertical center */
+  padding-left: 8px;          /* left padding */
+  height: 50px;               /* set a height (adjust if needed) */
+  margin-bottom: 16px;        /* space below toolbar */
+}
+
+.bordered {
+    border: 1px solid #ccc; /* optional: visual separation */
+    border-radius: 4px;
+    background-color: lightgray;
 }
 
 .new-account-btn {
@@ -15,6 +24,10 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.margine {
+    margin-right: 8px;
 }
 
 .new-account-btn:hover {
@@ -52,4 +65,9 @@
 .account-form button {
   padding: 8px;
   font-size: 14px;
+}
+
+.authorization_level {
+  background-color: white;
+  padding: 8px;
 }
