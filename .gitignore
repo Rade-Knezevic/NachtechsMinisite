@@ -3,5 +3,6 @@
 # FRONTEND
 # Ignore all node_modules folders everywhere
 node_modules/
+frontend/package-lock.json
 
 .idea/apps/backend/raw_backend/all_reviews.json
